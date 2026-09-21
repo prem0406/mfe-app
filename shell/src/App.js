@@ -1,11 +1,10 @@
-import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-const CartBadge = lazy(() => import("cart/CartBadge"));
+import Remote from "./Remote";
 
-// These imports resolve at runtime: "<remoteName>/<exposedName>"
-const Products = lazy(() => import("products/Products"));
-const Cart = lazy(() => import("cart/Cart"));
-const Checkout = lazy(() => import("checkout/Checkout"));
+const loadProducts = () => import("products/Products");
+const loadCart = () => import("cart/Cart");
+const loadCheckout = () => import("checkout/Checkout");
+const loadCartBadge = () => import("cart/CartBadge");
 
 export default function App() {
   return (
@@ -22,19 +21,31 @@ export default function App() {
         <Link to="/checkout" style={{ color: "#fff" }}>
           Checkout
         </Link>
-        <Suspense fallback={null}>
-          <CartBadge />
-        </Suspense>
+
+        {/* Non-critical widget: fail quietly with a neutral placeholder */}
+        <Remote
+          name="cart badge"
+          loader={loadCartBadge}
+          loading={null}
+          fallback={() => <span style={{ color: "#9ca3af" }}>🛒 –</span>}
+        />
       </nav>
 
       <main style={{ padding: 16 }}>
-        <Suspense fallback={<p>Loading micro frontend…</p>}>
-          <Routes>
-            <Route path="/" element={<Products />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-          </Routes>
-        </Suspense>
+        <Routes>
+          <Route
+            path="/"
+            element={<Remote name="products" loader={loadProducts} />}
+          />
+          <Route
+            path="/cart"
+            element={<Remote name="cart" loader={loadCart} />}
+          />
+          <Route
+            path="/checkout"
+            element={<Remote name="checkout" loader={loadCheckout} />}
+          />
+        </Routes>
       </main>
     </BrowserRouter>
   );
