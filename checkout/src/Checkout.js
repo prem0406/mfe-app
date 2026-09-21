@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react";
-import { EVENTS, emit, on } from "./events";
+import { useCartStore, selectTotal } from "cart/cartStore";
 
 export default function Checkout() {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    const off = on(EVENTS.CART_UPDATED, ({ items }) => setItems(items));
-    emit(EVENTS.CART_REQUEST); // subscribe FIRST, then ask for current state
-    return off; // cleanup on unmount
-  }, []);
-
-  const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
+  const items = useCartStore((s) => s.items);
+  const total = useCartStore(selectTotal);
+  const clear = useCartStore((s) => s.clear);
 
   return (
     <div style={{ border: "2px dashed #dc2626", padding: 16, borderRadius: 8 }}>
@@ -19,10 +12,7 @@ export default function Checkout() {
         {items.length} line item(s) — Total: ${total}
       </p>
       <input placeholder="Name" /> <input placeholder="Card number" />
-      <button
-        disabled={items.length === 0}
-        onClick={() => emit(EVENTS.ORDER_PLACED, { total })}
-      >
+      <button disabled={items.length === 0} onClick={clear}>
         Pay now
       </button>
     </div>

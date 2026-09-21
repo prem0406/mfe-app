@@ -1,9 +1,8 @@
-import { useSyncExternalStore } from "react";
-import { getItems, subscribe } from "./cartStore";
+import { useCartStore, selectTotal } from "./store/cartStore";
 
 export default function Cart() {
-  const items = useSyncExternalStore(subscribe, getItems);
-  const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
+  const items = useCartStore((s) => s.items);
+  const total = useCartStore(selectTotal);
 
   return (
     <div style={{ border: "2px dashed #059669", padding: 16, borderRadius: 8 }}>

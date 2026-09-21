@@ -1,8 +1,6 @@
-import { useSyncExternalStore } from "react";
-import { getItems, subscribe } from "./cartStore";
+import { useCartStore, selectCount } from "./store/cartStore";
 
 export default function CartBadge() {
-  const items = useSyncExternalStore(subscribe, getItems);
-  const count = items.reduce((n, i) => n + i.qty, 0);
+  const count = useCartStore(selectCount);
   return <span style={{ color: "#fff" }}>🛒 {count}</span>;
 }

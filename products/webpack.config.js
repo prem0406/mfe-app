@@ -23,6 +23,10 @@ module.exports = {
       exposes: {
         "./Products": "./src/Products", // what other apps can import
       },
+      remotes: {
+        // format: "<remoteName>@<url>/<filename>"
+        cart: "cart@http://localhost:3002/remoteEntry.js",
+      },
       shared: {
         react: { singleton: true, requiredVersion: deps.react },
         "react-dom": { singleton: true, requiredVersion: deps["react-dom"] },

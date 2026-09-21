@@ -1,4 +1,4 @@
-import { EVENTS, emit } from "./events";
+import { useCartStore } from "cart/cartStore";
 
 const items = [
   { id: 1, name: "Laptop", price: 999 },
@@ -7,6 +7,8 @@ const items = [
 ];
 
 export default function Products() {
+  const addItem = useCartStore((s) => s.addItem);
+
   return (
     <div style={{ border: "2px dashed #4f46e5", padding: 16, borderRadius: 8 }}>
       <h2>🛍️ Products MFE</h2>
@@ -14,9 +16,7 @@ export default function Products() {
         {items.map((p) => (
           <li key={p.id}>
             {p.name} — ${p.price}{" "}
-            <button onClick={() => emit(EVENTS.ADD_TO_CART, p)}>
-              Add to cart
-            </button>
+            <button onClick={() => addItem(p)}>Add to cart</button>
           </li>
         ))}
       </ul>

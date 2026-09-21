@@ -23,6 +23,7 @@ module.exports = {
       exposes: {
         "./Cart": "./src/Cart", // what other apps can import
         "./CartBadge": "./src/CartBadge",
+        "./cartStore": "./src/store/cartStore",
       },
       shared: {
         react: { singleton: true, requiredVersion: deps.react },
