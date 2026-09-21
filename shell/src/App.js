@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+const CartBadge = lazy(() => import("cart/CartBadge"));
 
 // These imports resolve at runtime: "<remoteName>/<exposedName>"
 const Products = lazy(() => import("products/Products"));
@@ -21,6 +22,9 @@ export default function App() {
         <Link to="/checkout" style={{ color: "#fff" }}>
           Checkout
         </Link>
+        <Suspense fallback={null}>
+          <CartBadge />
+        </Suspense>
       </nav>
 
       <main style={{ padding: 16 }}>

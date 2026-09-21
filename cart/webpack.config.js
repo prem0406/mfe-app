@@ -22,6 +22,7 @@ module.exports = {
       filename: "remoteEntry.js", // manifest the shell will fetch
       exposes: {
         "./Cart": "./src/Cart", // what other apps can import
+        "./CartBadge": "./src/CartBadge",
       },
       shared: {
         react: { singleton: true, requiredVersion: deps.react },

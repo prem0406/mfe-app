@@ -1,3 +1,5 @@
+import { EVENTS, emit } from "./events";
+
 const items = [
   { id: 1, name: "Laptop", price: 999 },
   { id: 2, name: "Headphones", price: 199 },
@@ -11,7 +13,10 @@ export default function Products() {
       <ul>
         {items.map((p) => (
           <li key={p.id}>
-            {p.name} — ${p.price} <button>Add to cart</button>
+            {p.name} — ${p.price}{" "}
+            <button onClick={() => emit(EVENTS.ADD_TO_CART, p)}>
+              Add to cart
+            </button>
           </li>
         ))}
       </ul>
