@@ -1,0 +1,23 @@
+{
+  "name": "mfe-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm start --prefix products\" \"npm start --prefix cart\" \"npm start --prefix checkout\" \"npm start --prefix shell\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prem0406/mfe-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prem0406/mfe-app/issues"
+  },
+  "homepage": "https://github.com/prem0406/mfe-app#readme",
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}
