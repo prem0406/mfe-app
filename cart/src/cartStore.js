@@ -27,3 +27,8 @@ export const subscribe = (l) => {
   listeners.add(l);
   return () => listeners.delete(l);
 };
+
+// Reset per-user state when the session ends
+if (typeof window !== "undefined") {
+  window.addEventListener("auth:logout", () => useCartStore.getState().clear());
+}

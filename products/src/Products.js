@@ -6,12 +6,15 @@ const PRODUCTS = [
   { id: 3, name: "Keyboard", price: 79 },
 ];
 
-export default function Products() {
+export default function Products({ auth }) {
   const { status, addItem, retry } = useCart();
 
   return (
     <div style={{ border: "2px dashed #4f46e5", padding: 16, borderRadius: 8 }}>
       <h2>🛍️ Products MFE</h2>
+      <p>
+        {auth?.user ? `Welcome back, ${auth.user.name}` : "Browsing as guest"}
+      </p>
 
       {status === "unavailable" && (
         <p

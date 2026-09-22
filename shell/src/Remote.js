@@ -52,6 +52,7 @@ export default function Remote({
   loader,
   fallback,
   loading = <p>Loading {name}…</p>,
+  componentProps,
 }) {
   const [attempt, setAttempt] = useState(0);
 
@@ -72,7 +73,7 @@ export default function Remote({
       }
     >
       <Suspense fallback={loading}>
-        <Component />
+        <Component {...componentProps} />
       </Suspense>
     </ErrorBoundary>
   );

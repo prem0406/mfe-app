@@ -8,6 +8,7 @@ module.exports = {
   devServer: {
     port: 3003,
     headers: { "Access-Control-Allow-Origin": "*" }, // lets the shell load this remote
+    proxy: [{ context: ["/api"], target: "http://localhost:4000" }], //FOr standalone mode
   },
   output: { publicPath: "auto" },
   resolve: { extensions: [".js", ".jsx"] },
