@@ -8,6 +8,7 @@ module.exports = {
   devServer: {
     port: 3000,
     historyApiFallback: true, // needed for client-side routing
+    proxy: [{ context: ["/api"], target: "http://localhost:4000" }],
   },
   output: { publicPath: "/" },
   resolve: { extensions: [".js", ".jsx"] },
